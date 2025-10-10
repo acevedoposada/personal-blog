@@ -9,6 +9,8 @@ import Header from '../components/Header.astro';
 type Props = CollectionEntry<'blog'>['data'];
 
 const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+
+const slug = title.toLowerCase().split(' ').join('-');
 ---
 
 <html lang="en">
@@ -16,25 +18,40 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 		<BaseHead title={title} description={description} />
 		<style>
 			main {
-				width: calc(100% - 2em);
-				max-width: 100%;
-				margin: 0;
+				@apply w-[calc(100%_-_2em)] max-w-full m-[0];
 			}
 			.hero-image {
 				width: 100%;
+				display: grid;
+				position: relative;
+
+				& img {
+					grid-column: 1 / 2;
+					grid-row: 1 / 2;
+
+					&:first-child {
+						z-index: 1;
+					}
+
+					&:last-child {
+						opacity: 0;
+						filter: blur(5rem);
+						animation: fadeIn 1s ease forwards;
+						animation-delay: 0.3s;
+					}
+				}
 			}
 			.hero-image img {
 				display: block;
 				margin: 0 auto;
 				border-radius: 12px;
-				box-shadow: var(--box-shadow);
 			}
 			.prose {
 				width: 720px;
 				max-width: calc(100% - 2em);
 				margin: auto;
 				padding: 1em;
-				color: rgb(var(--gray-dark));
+				color: rgb(var(--gray-lighter));
 			}
 			.title {
 				margin-bottom: 1em;
@@ -52,6 +69,17 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 			.last-updated-on {
 				font-style: italic;
 			}
+
+			@keyframes fadeIn {
+				from {
+					opacity: 0;
+					filter: blur(5rem);
+				}
+				to {
+					opacity: 0.7;
+					filter: blur(2.5rem);
+				}
+			}
 		</style>
 	</head>
 
@@ -60,7 +88,21 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 		<main>
 			<article>
 				<div class="hero-image">
-					{heroImage && <Image width={1020} height={510} src={heroImage} alt="" />}
+					{heroImage && (
+						<Image
+							width={1020}
+							height={510}
+							src={heroImage}
+							alt=""
+							transition:name={`image-${slug}`}
+						/>
+						<Image
+							width={1020}
+							height={510}
+							src={heroImage}
+							alt=""
+						/>
+					)}
 				</div>
 				<div class="prose">
 					<div class="title">
