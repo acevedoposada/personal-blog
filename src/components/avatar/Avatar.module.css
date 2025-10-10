@@ -1,0 +1,29 @@
+@reference "@/styles/tailwind.css";
+
+.avatar {
+  @apply grid aspect-square h-8 w-8 place-content-center rounded-full border leading-none lg:h-10 lg:w-10;
+}
+
+.avatar > svg {
+  @apply h-5 w-5;
+}
+
+.avatar__img {
+  @apply rounded-full;
+}
+
+.avatar--no-border {
+  @apply relative border-none border-transparent hover:before:scale-110;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.2);
+}
+
+.avatar--no-border::before {
+  content: "";
+  @apply absolute left-0 top-0 z-[-1] h-full w-full rounded-full bg-gradient-to-r from-indigo-500 to-purple-500
+    opacity-50 blur-md transition-transform duration-300;
+}
+
+.avatar--disable-glow::before {
+  @apply hidden;
+  content: "";
+}

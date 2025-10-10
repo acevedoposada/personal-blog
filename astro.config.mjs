@@ -1,9 +1,10 @@
 // @ts-check
 
-import mdx from '@astrojs/mdx';
-import sitemap from '@astrojs/sitemap';
 import { defineConfig } from 'astro/config';
+import sitemap from '@astrojs/sitemap';
 import node from '@astrojs/node';
+import mdx from '@astrojs/mdx';
+import path from 'node:path';
 
 import tailwindcss from '@tailwindcss/vite';
 
@@ -15,5 +16,10 @@ export default defineConfig({
   adapter: node({ mode: "standalone" }),
   vite: {
     plugins: [tailwindcss()],
+    resolve: {
+      alias: {
+        '@': path.resolve('./src'),
+      },
+    },
   },
 });

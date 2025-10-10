@@ -1,1 +1,5 @@
-export const server = {};
+import { posts } from "./posts";
+
+export const server = {
+  posts
+};

@@ -1,0 +1,22 @@
+---
+import type { BlogCardProps, CardProps } from './Card.model'
+
+type Props = BlogCardProps;
+
+const { variant, ...props } = Astro.props;
+
+let CardComponent: (_props: CardProps) => any;
+
+switch (variant) {
+  case 'featured':
+    CardComponent = (await import('./featured/Featured.astro')).default;
+    break;
+  case 'post':
+    CardComponent = (await import('./post/Post.astro')).default;
+    break;
+  default:
+    throw new Error(`Unknown card variant: ${variant}`);
+}
+---
+
+<CardComponent {...props} />

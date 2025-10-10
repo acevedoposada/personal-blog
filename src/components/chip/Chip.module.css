@@ -1,0 +1,37 @@
+@reference "@/styles/tailwind.css";
+
+.chip {
+  @apply line-clamp-1 block h-fit w-fit whitespace-nowrap rounded-full border px-3 py-1 text-sm font-semibold
+    transition-all duration-500 ease-in-out;
+}
+
+.chip__filled--default { @apply text-white bg-indigo-500 border-indigo-500; }
+.chip__filled--white   { @apply text-black bg-white border-white; }
+.chip__filled--black   { @apply text-white bg-black border-black; }
+.chip__filled--warning { @apply text-white bg-amber-500 border-amber-500; }
+.chip__filled--error   { @apply text-white bg-red-500 border-red-500; }
+.chip__filled--success { @apply text-white bg-lime-600 border-lime-600; }
+.chip__filled--info    { @apply text-white bg-blue-500 border-blue-500; }
+
+.chip__outlined { @apply font-semibold; }
+
+.chip__outlined--default { @apply text-indigo-500 border-indigo-500; }
+.chip__outlined--white   { @apply text-white border-white; }
+.chip__outlined--black   { @apply text-black border-black; }
+.chip__outlined--warning { @apply text-amber-500 border-amber-500; }
+.chip__outlined--error   { @apply text-red-500 border-red-500; }
+.chip__outlined--success { @apply text-lime-600 border-lime-600; }
+.chip__outlined--info    { @apply text-blue-500 border-blue-500; }
+
+.chip__tonal { @apply font-medium; }
+
+.chip__tonal--default { @apply text-indigo-300 bg-indigo-900/50 border-indigo-500/0; }
+.chip__tonal--white   { @apply text-black bg-white/50 border-white/0; }
+.chip__tonal--black   { @apply text-black bg-black/50 border-black/0; }
+.chip__tonal--warning { @apply text-amber-900 bg-amber-400/50 border-amber-500/0; }
+.chip__tonal--error   { @apply text-red-900 bg-red-400/50 border-red-500/0; }
+.chip__tonal--success { @apply text-lime-900 bg-lime-400/50 border-lime-600/0; }
+.chip__tonal--info    { @apply text-blue-900 bg-blue-400/50 border-blue-500/0; }
+
+.chip--sm { @apply px-1.5 py-0.5 text-xs; }
+.chip--lg { @apply text-lg; }

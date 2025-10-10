@@ -3,6 +3,7 @@ title: 'Cosas pendientes'
 description: 'En este archivo escribiré todos los pendientes de la web'
 pubDate: 'Jun 19 2025'
 heroImage: '../../assets/blog-placeholder-1.jpg'
+tags: ['CSS', 'Definition']
 ---
 
 ## Pendientes para la pagina
