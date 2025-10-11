@@ -1,0 +1,51 @@
+---
+import type { LocalImageProps } from 'astro:assets';
+import { Image } from 'astro:assets';
+import dayjs from 'dayjs';
+
+import Chip from '@/components/chip/Chip.astro';
+import Avatar from '@/components/avatar/Avatar.astro';
+
+import type { CardProps } from '../Card.model';
+import styles from './Post.module.css';
+
+type Props = CardProps;
+
+const { image, class: className, title, description, avatar, date, tags, ...props } = Astro.props;
+
+const formattedDate = dayjs(date || new Date()).format("MMM DD, YYYY");
+---
+
+<article class:list={[styles.post, "group flex flex-col", className]} {...props}>
+  <Image
+    src={image as LocalImageProps['src']}
+    alt="Post image cover"
+    width={300}
+    height={200}
+    class={styles.post__img}
+  />
+  <div class="pb-2 pt-4 h-full flex-1">
+    <div class="flex gap-2 h-6">
+      {tags?.map((tag) => (
+        <Chip variant="tonal" color="default" size="sm">
+          {tag}
+        </Chip>
+      ))}
+    </div>
+    <h3 class={styles.post__title} title={title}>
+      {title}
+    </h3>
+    <p class={styles.post__description}>{description}</p>
+    <div class:list={[styles.post__info, "group-hover:translate-y-2"]}>
+      <div class="flex items-center gap-3 text-sm font-semibold opacity-80">
+        {avatar.img ? (
+          <Avatar src={avatar.img} alt={`${avatar.name} avatar`} disableGlow />
+        ) : (
+          <Avatar>{avatar.name}</Avatar>
+        )}
+        <p>{avatar.name}</p>
+      </div>
+      {formattedDate && <p class="text-sm opacity-50">{formattedDate}</p>}
+    </div>
+  </div>
+</article>

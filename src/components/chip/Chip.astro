@@ -1,0 +1,27 @@
+---
+import type { ChipProps } from './Chip.model';
+import styles from './Chip.module.css';
+
+type Props = ChipProps;
+
+const {
+  variant = 'outlined',
+  size = 'default',
+  color = 'white',
+  class: className,
+  ...props
+} = Astro.props;
+---
+
+<span
+  class:list={[
+    styles.chip,
+    styles[`chip__${variant}`],
+    styles[`chip__${variant}--${color}`],
+    styles[`chip--${size}`],
+    className
+  ]}
+  {...props}
+>
+  <slot />
+</span>

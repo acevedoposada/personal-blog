@@ -1,0 +1,96 @@
+@reference "../../../styles/tailwind.css";
+
+.featured {
+  @apply relative grid max-h-[32rem] w-full cursor-pointer grid-rows-2
+    rounded-4xl bg-white/50 bg-cover bg-center bg-no-repeat shadow-md
+    md:aspect-video lg:grid-rows-3;
+
+  aspect-ratio: 10 / 16;
+  background-image: var(--bg-image);
+}
+
+.featured::before {
+  content: "";
+  @apply absolute z-[-1] h-full w-full rounded-4xl bg-cover bg-center opacity-40
+    transition-transform duration-500;
+
+  background-image: var(--bg-image);
+  filter: hue-rotate(240deg) blur(2rem);
+}
+
+.featured:hover::before {
+  transform: scale(1.02);
+}
+
+.featured__content {
+  @apply relative row-start-2 grid w-full overflow-hidden rounded-b-4xl
+    border-t border-white/10 bg-zinc-800/40 p-4 backdrop-blur-xl
+    sm:p-6 sm:pt-4 lg:row-start-3;
+
+  gap: 1rem;
+  grid-template-rows: 1fr auto; 
+
+  background: radial-gradient(
+    circle,
+    rgba(2, 0, 36, 0.3) 0%,
+    rgba(9, 9, 121, 0.3) 35%,
+    rgba(2, 0, 36, 0.3) 100%
+  );
+}
+
+.featured__content::before {
+  content: "";
+  @apply absolute z-[-1] h-full w-full opacity-50 blur-2xl;
+
+  transform: scale(1.25);
+  background: conic-gradient(
+    var(--alt) 80deg,
+    var(--indigo-500),
+    var(--purple-500),
+    var(--indigo-500),
+    var(--alt) 280deg
+  );
+  box-shadow: 1px 60px 109px -70px rgba(0, 0, 0, 0.32) inset;
+  -webkit-box-shadow: 1px 60px 109px -70px rgba(0, 0, 0, 0.32) inset;
+  -moz-box-shadow: 1px 60px 109px -70px rgba(0, 0, 0, 0.32) inset;
+}
+
+.featured__content__header {
+  @apply grid gap-4;
+  grid-template-columns: 1fr auto;
+}
+
+.featured__content__header__icon {
+  @apply hidden sm:block text-[2rem];
+}
+
+.featured__content__title {
+  @apply mb-2 text-xl font-extrabold font-lora text-left
+    md:text-2xl md:leading-8 lg:mb-3
+    line-clamp-2;
+
+  letter-spacing: -0.012em; 
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
+
+.featured__content__description {
+  @apply text-sm tracking-normal md:text-base line-clamp-2 text-zinc-200 text-left;
+  line-height: 160%;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
+
+.featured__content__info {
+  @apply flex flex-col items-start justify-start gap-4
+    md:flex-row md:items-center md:justify-between md:gap-5;
+}
+
+.featured__content__info__element {
+  @apply flex flex-col items-start gap-1
+    sm:flex-row sm:items-center sm:gap-2;
+}
+
+.featured__content__info__element h5 {
+  @apply text-sm font-medium md:text-base md:font-extrabold;
+}

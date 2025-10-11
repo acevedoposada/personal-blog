@@ -1,0 +1,9 @@
+---
+interface Props extends Omit<astroHTML.JSX.IntrinsicElements["i"], "name"> {
+  name: string;
+}
+
+const { name, class: className, ...props } = Astro.props;
+---
+
+<i class:list={["ti", `ti-${name}`, className]} {...props} />

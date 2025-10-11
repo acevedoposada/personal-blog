@@ -1,0 +1,47 @@
+@reference "@/styles/tailwind.css";
+
+.post {
+  @apply relative cursor-pointer rounded-3xl hover:before:opacity-30 hover:after:scale-105 hover:after:opacity-40;
+}
+
+.post::after {
+  content: "";
+  @apply absolute left-0 top-0 z-[-1] h-full w-full rounded-4xl border border-white/20 opacity-0 transition-all duration-500;
+  background: radial-gradient(
+    circle,
+    rgba(2, 0, 36, 0.5) 0%,
+    rgba(9, 9, 121, 0.5) 35%,
+    rgba(2, 0, 36, 0.5) 100%
+  );
+}
+
+.post::before {
+  content: "";
+  @apply absolute z-[-2] h-full w-full overflow-hidden rounded-3xl opacity-0 blur-2xl transition-all duration-500;
+  background: conic-gradient(
+    var(--alt) 80deg,
+    var(--indigo-500),
+    var(--purple-500),
+    var(--indigo-500),
+    var(--alt) 280deg
+  );
+}
+
+.post__img {
+  @apply aspect-video w-full rounded-3xl object-cover object-center;
+}
+
+.post__title {
+  @apply my-2 line-clamp-1 font-lora text-2xl font-semibold;
+  line-height: 2rem;
+  letter-spacing: -0.012em;
+}
+
+.post__description {
+  @apply line-clamp-2 tracking-normal opacity-70 h-16 min-h-16;
+  line-height: 160%;
+}
+
+.post__info {
+  @apply mt-4 flex items-center justify-between transition-transform duration-500;
+}

@@ -1,0 +1,65 @@
+---
+import dayjs from 'dayjs';
+
+import Avatar from '@/components/avatar/Avatar.astro';
+import Chip from '@/components/chip/Chip.astro';
+import Icon from '@/components/Icon.astro';
+import { getInitials } from '@/lib/string';
+
+import type { CardProps } from '../Card.model';
+import styles from './Featured.module.css';
+
+type Props = CardProps;
+
+const { image, class: className, title, description, avatar, date, tags, ...props } = Astro.props;
+
+const formattedDate = dayjs(date || new Date()).format("MMM DD, YYYY");
+---
+
+<article
+  class:list={[styles.featured, className]}
+  style={{ ['--bg-image']: `url('${typeof image === "string" ? image : image?.src}')` }}
+  {...props}
+>
+  <section class={styles.featured__content}>
+    <aside class={styles.featured__content__header}>
+      <div>
+        <h3 class={styles.featured__content__title} title={title}>
+          {title}
+        </h3>
+        <p class={styles.featured__content__description}>{description}</p>
+      </div>
+      <span class={styles.featured__content__header__icon}>
+         <Icon name="arrow-up-right" />
+      </span>
+    </aside>
+    <aside class={styles.featured__content__info}>
+      <div class="flex gap-4">
+        <div class={styles.featured__content__info__element}>
+          {avatar.img ? (
+            <Avatar alt={`${avatar.name} Avatar`} src={avatar.img} />
+          ) : (
+            <Avatar>{getInitials(avatar.name)}</Avatar>
+          )}
+          <h5>{avatar.name}</h5>
+        </div>
+        <div class={styles.featured__content__info__element}>
+          <Avatar>
+            <Icon name="calendar" />
+          </Avatar>
+          <h5>{formattedDate}</h5>
+        </div>
+      </div>
+
+      {tags && (
+        <div class="flex gap-3">
+          {tags?.map((tag) => (
+            <Chip variant="tonal" color="default">
+              {tag}
+            </Chip>
+          ))}
+        </div>
+      )}
+    </aside>
+  </section>
+</article>

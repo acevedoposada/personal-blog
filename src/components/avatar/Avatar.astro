@@ -1,0 +1,36 @@
+---
+import { Image } from 'astro:assets';
+
+import type { AvatarProps } from './Avatar.model'
+import styles from './Avatar.module.css';
+
+type Props = AvatarProps;
+
+const { src, alt, class: className, disableGlow, ...props } = Astro.props;
+
+---
+
+<span
+  class:list={[
+    styles.avatar, 
+    { 
+      [styles["avatar--no-border"]]: !!src,
+      [styles["avatar--disable-glow"]]: disableGlow, 
+    }, className ]}
+    {...props}
+  >
+    {
+      src ? (
+        <Image
+          src={src}
+          alt={alt} 
+          class={styles.avatar__img} 
+          sizes="(max-width: 600px) 40px, 60px"
+          width={40}
+          height={40}
+        />
+      ) : (
+        <slot />
+      )
+    }
+</span>
