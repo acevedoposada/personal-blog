@@ -7,6 +7,7 @@ import '@fontsource/ubuntu/500.css';
 import '@fontsource/ubuntu/700.css';
 import '@fontsource-variable/lora';
 
+import DotsBackground from '@/components/dots-background/dots-background.tsx';
 import BaseHead from '@/components/BaseHead.astro';
 import Card from '@/components/card/Card.astro';
 import Footer from '@/components/Footer.astro';
@@ -60,6 +61,9 @@ const { posts } = data;
 					}
 				</ul>
 			</section>
+			<div class="pointer-events-none absolute top-0 z-[-1] h-full w-screen select-none overflow-x-hidden">
+				<DotsBackground client:load speed={{ left: 55, right: 65 }} />
+			</div>
 		</main>
 		<Footer />
 	</body>
