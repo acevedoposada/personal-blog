@@ -1,0 +1,114 @@
+---
+import Chip from '../chip/Chip.astro';
+import Highlight from '../Highlight.astro';
+import Icon from '../Icon.astro';
+
+import './Header.css';
+
+const mainSiteUrl = import.meta.env.MAIN_SITE_URL;
+
+const title = "Thought";
+const subtitle = "Journal";
+const description =
+  "A blog about development, tech trends, and best practices to help you write better code and understand the digital future.";
+---
+
+<header id="blog-header" class="pt-12">
+	<div class="container mx-auto grid gap-6 px-6">
+		<a href={mainSiteUrl} class="focus:outline-none">Go home</a>
+
+		<Chip variant="tonal" color="default">
+			Read my blog
+		</Chip>
+		<h1 class="font-lora text-4xl font-medium lg:text-6xl">
+			{title} <Highlight class="px-2 lg:px-4">{subtitle}</Highlight>
+		</h1>
+		<p class="text-lg font-light opacity-80 lg:text-2xl">
+			{description}
+		</p>
+	</div>
+
+	<div
+		id="blog-header-sticky"
+		class="fixed -top-10 left-0 z-10 w-full bg-indigo-900/40 pt-10 shadow-lg shadow-indigo-800/15 backdrop-blur-xl"
+		data-state="hidden"
+		aria-hidden="true"
+	>
+		<div class="group container mx-auto flex items-center px-6 py-6">
+			<a
+				href={mainSiteUrl}
+				class="group-hover:mr-2 rounded-lg p-1.5 pl-0 transition-all duration-300 hover:bg-indigo-600/25 hover:pl-1.5 grid place-content-center"
+				aria-label="Go home"
+			>
+				<Icon class="text-2xl" name="chevron-left" />
+      </a>
+      <h2 class="font-lora text-xl font-medium transition-all duration-300 peer-hover:ml-4 lg:text-3xl">
+        {title} <Highlight>{subtitle}</Highlight>
+      </h2>
+    </div>
+  </div>
+</header>
+
+<script>
+	(function () {
+		const root = document.getElementById("blog-header");
+		const sticky = document.getElementById("blog-header-sticky");
+	
+		if (!root || !sticky) return;
+
+		let visible = false;
+		let animating = false;
+
+		const show = () => {
+			if (visible || animating) return;
+			visible = true;
+			animating = true;
+			sticky.removeAttribute("aria-hidden");
+			sticky.dataset.state = "enter";
+			sticky.addEventListener(
+				"animationend",
+				() => {
+					if (sticky.dataset.state === "enter") sticky.dataset.state = "shown";
+					animating = false;
+				},
+				 {once: true }
+			);
+		}
+
+		const hide = () => {
+			if (!visible || animating) return;
+			visible = false;
+			animating = true;
+			sticky.dataset.state = "exit";
+			sticky.addEventListener(
+				"animationend",
+				() => {
+					if (sticky.dataset.state === "exit") {
+						sticky.dataset.state = "hidden";
+						sticky.setAttribute("aria-hidden", "true");
+					}
+					animating = false;
+				},
+				{ once: true }
+			);
+		}
+
+		const io = new IntersectionObserver(
+			([entry]) => {
+				if (!entry) return;
+
+				if (entry.isIntersecting) {
+					hide();
+				} else {
+					show();
+				}
+			},
+			{
+				root: null,
+				rootMargin: "-200px 0px 0px 0px",
+				threshold: 0,
+			}
+		);
+		io.observe(root);
+	})();
+</script>

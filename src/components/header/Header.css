@@ -1,0 +1,44 @@
+#blog-header-sticky[data-state="hidden"] {
+  display: none;
+}
+
+#blog-header-sticky[data-state="enter"] {
+  display: block;
+  pointer-events: auto;
+  animation: slide-in-down 220ms both ease-out;
+}
+
+#blog-header-sticky[data-state="shown"] {
+  display: block;
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+#blog-header-sticky[data-state="exit"] {
+  display: block;
+  pointer-events: auto;
+  animation: slide-out-up 180ms both ease-in;
+}
+
+@keyframes slide-in-down {
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-out-up {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+}
