@@ -16,14 +16,14 @@
 }
 
 .post::before {
-  content: "";
+  content: " ";
   @apply absolute z-[-2] h-full w-full overflow-hidden rounded-3xl opacity-0 blur-2xl transition-all duration-500;
   background: conic-gradient(
-    var(--alt) 80deg,
-    var(--indigo-500),
-    var(--purple-500),
-    var(--indigo-500),
-    var(--alt) 280deg
+    var(--color-alt) 80deg,
+    var(--color-indigo-500),
+    var(--color-purple-500),
+    var(--color-indigo-500),
+    var(--color-alt) 280deg
   );
 }
 
