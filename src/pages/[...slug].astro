@@ -1,18 +1,14 @@
 ---
-import "../styles/tailwind.css";
+import BlogPost from "@/layouts/BlogPost.astro";
 
 export const prerender = false;
 
-// export async function getStaticPaths() {
-// 	const posts = await getCollection('blog');
-// 	return posts.map((post) => ({
-// 		params: { slug: post.id },
-// 		props: post,
-// 	}));
-// }
-// type Props = CollectionEntry<'blog'>;
+const { slug } = Astro.params;
 
-// const post = Astro.props;
 ---
 
-<h1>Hola mundo</h1>
+<BlogPost
+  title={slug}
+>
+  <h1 class="text-4xl font-bold font-lora">loading {slug}</h1>
+</BlogPost>

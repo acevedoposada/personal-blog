@@ -1,3 +1,4 @@
+@reference "./tailwind.css";
 @import url("../assets/fonts/tabler-icons/tabler-icons.min.css");
 
 :root {
