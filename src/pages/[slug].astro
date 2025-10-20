@@ -25,16 +25,15 @@ if (error) {
       headers: { Location: `/${slug}` }
     })
   }
-
-  if (error.code === 'BAD_REQUEST') {
-    return new Response(null, {
-      status: 500,
-      headers: { Location: `/${slug}` }
-    })
-  }
 }
 
-const html = await mdToHtml(post?.content ?? '');
+let html 
+try {
+  html = await mdToHtml(post?.content ?? '');
+
+} catch {
+  html = '';
+}
 
 ---
 
