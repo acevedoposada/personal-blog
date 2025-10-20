@@ -15,7 +15,8 @@ import Header from '@/components/header/Header.astro';
 
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 
-import '../styles/tailwind.css';
+import '@/styles/global.css';
+import '@/styles/tailwind.css';
 
 const { data = { posts: [] } } = await Astro.callAction(actions.posts, { page: 1})
 const { posts } = data;

@@ -1,0 +1,65 @@
+---
+import { actions } from "astro:actions";
+import { Image } from "astro:assets";
+import dayjs from 'dayjs';
+
+import BlogPost from "@/layouts/BlogPost.astro";
+import { mdToHtml } from '@/lib/markdown';
+
+export const prerender = false;
+
+const { slug = '' } = Astro.params;
+
+if (slug.endsWith('.css') || slug.endsWith('.map')) {
+  return new Response(null, { status: 404 });
+}
+
+const { data: post, error } = await Astro.callAction(
+  actions.post, { slug: slug ?? '' }
+);
+
+if (error) {
+  if (error.code === 'NOT_FOUND') {
+    return new Response(null, {
+      status: 404,
+      headers: { Location: `/${slug}` }
+    })
+  }
+
+  if (error.code === 'BAD_REQUEST') {
+    return new Response(null, {
+      status: 500,
+      headers: { Location: `/${slug}` }
+    })
+  }
+}
+
+const html = await mdToHtml(post?.content ?? '');
+
+---
+
+<BlogPost
+  title={post?.title ?? error?.message}
+  description={post?.description ?? error?.message}
+>
+  <section class="w-full max-w-full">
+    <Image
+      width={300}
+      height={150}
+      src={post?.cover_img}
+      alt="Post cover image"
+    />
+    <h1 class="text-4xl font-bold font-lora">
+      {post?.title}
+    </h1>
+    <p>{dayjs(post?.published_at).format('MMMM D, YYYY')}</p>
+
+    <h3>
+      {post?.description}
+    </h3>
+    
+    <article set:html={html} />
+
+    {error && error.message}
+  </section>
+</BlogPost>
