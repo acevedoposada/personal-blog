@@ -26,3 +26,17 @@ export const getPosts = async (page: number) => {
     pageSize: pageSize
   }
 }
+
+export async function getPostBySlug(slug: string) {
+  const { data, error, status } = await supabase
+    .from('post')
+    .select('*')
+    .eq('slug', slug)
+    .single();
+
+  return {
+    post: data,
+    error,
+    status
+  }
+}

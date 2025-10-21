@@ -1,7 +1,6 @@
 ---
 import type { LocalImageProps } from 'astro:assets';
 import { Image } from 'astro:assets';
-import dayjs from 'dayjs';
 
 import Chip from '@/components/chip/Chip.astro';
 import Avatar from '@/components/avatar/Avatar.astro';
@@ -12,8 +11,6 @@ import styles from './Post.module.css';
 type Props = CardProps;
 
 const { image, class: className, title, description, avatar, date, tags, ...props } = Astro.props;
-
-const formattedDate = dayjs(date || new Date()).format("MMM DD, YYYY");
 ---
 
 <article class:list={[styles.post, "group flex flex-col", className]} {...props}>
@@ -46,7 +43,7 @@ const formattedDate = dayjs(date || new Date()).format("MMM DD, YYYY");
         )}
         <p>{avatar.name}</p>
       </div>
-      {formattedDate && <p class="text-sm opacity-50">{formattedDate}</p>}
+      {date && <p class="text-sm opacity-50">{date}</p>}
     </div>
   </div>
 </article>

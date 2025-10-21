@@ -1,6 +1,4 @@
 ---
-import dayjs from 'dayjs';
-
 import Avatar from '@/components/avatar/Avatar.astro';
 import Chip from '@/components/chip/Chip.astro';
 import Icon from '@/components/Icon.astro';
@@ -12,8 +10,6 @@ import styles from './Featured.module.css';
 type Props = CardProps;
 
 const { image, class: className, title, description, avatar, date, tags, ...props } = Astro.props;
-
-const formattedDate = dayjs(date || new Date()).format("MMM DD, YYYY");
 ---
 
 <article
@@ -47,7 +43,7 @@ const formattedDate = dayjs(date || new Date()).format("MMM DD, YYYY");
           <Avatar>
             <Icon name="calendar" />
           </Avatar>
-          <h5>{formattedDate}</h5>
+          <h5>{date}</h5>
         </div>
       </div>
 

@@ -1,11 +1,15 @@
 ---
+import dayjs from 'dayjs';
+
 import type { BlogCardProps, CardProps } from './Card.model'
 
 type Props = BlogCardProps;
 
-const { variant, ...props } = Astro.props;
+const { variant, date, ...props } = Astro.props;
 
 let CardComponent: (_props: CardProps) => any;
+
+const formattedDate = dayjs(date || new Date()).format("MMM DD, YYYY");
 
 switch (variant) {
   case 'featured':
@@ -19,4 +23,4 @@ switch (variant) {
 }
 ---
 
-<CardComponent {...props} />
+<CardComponent {...props} date={formattedDate} />
