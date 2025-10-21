@@ -1,5 +1,6 @@
 ---
 import BaseHead from '@/components/BaseHead.astro';
+import { getImageMetadata } from '@/utils/image';
 import Footer from '@/components/Footer.astro';
 
 import '@fontsource/ubuntu/300.css';
@@ -14,14 +15,21 @@ import '@/styles/global.css';
 interface Props {
 	title: string;
 	description: string;
+	image?: string;
 }
 
-const { title, description } = Astro.props;
+const { title, description, image } = Astro.props;
+
+let imageProperties;
+if (image) {
+	imageProperties = await getImageMetadata(image);
+}
+
 ---
 
 <html lang="en">
 	<head>
-		<BaseHead title={title} description={description} />
+		<BaseHead title={title} description={description} image={imageProperties} />
 	</head>
 
 	<body class="flex flex-col min-h-screen">
