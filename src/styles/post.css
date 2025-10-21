@@ -1,0 +1,72 @@
+@reference "@/styles/tailwind.css";
+
+.content :where(h1){ @apply text-3xl md:text-4xl font-bold tracking-tight text-balance dark:text-neutral-100; }
+.content :where(h2){ @apply text-2xl md:text-3xl font-semibold tracking-tight mt-10 dark:text-neutral-100; }
+.content :where(h3){ @apply text-xl md:text-2xl font-semibold mt-8 dark:text-neutral-100; }
+.content :where(h4){ @apply text-lg md:text-xl font-semibold mt-6 dark:text-neutral-100; }
+.content :where(h5){ @apply text-base md:text-lg font-semibold mt-4 dark:text-neutral-100; }
+.content :where(h6){ @apply text-base font-medium mt-3 uppercase tracking-wide text-neutral-600 dark:text-neutral-300; }
+
+.content :where(p){ @apply mt-4 leading-relaxed text-pretty text-neutral-800 dark:text-neutral-200; }
+.content :where(strong){ @apply font-semibold text-neutral-900 dark:text-neutral-100; }
+.content :where(em){ @apply italic; }
+.content :where(mark){ @apply bg-yellow-200/60 dark:bg-yellow-400/20 rounded px-1; }
+.content :where(kbd){ @apply font-mono text-[0.8em] px-1 py-0.5 rounded border border-neutral-300 bg-neutral-50 dark:bg-neutral-900 dark:border-neutral-700; }
+.content :where(sup){ @apply align-super text-[0.7em]; }
+.content :where(sub){ @apply align-sub text-[0.7em]; }
+
+.content :where(a){
+  @apply text-indigo-600 hover:text-indigo-700 underline underline-offset-4 decoration-indigo-300 hover:decoration-indigo-400
+         focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 rounded-sm dark:text-indigo-400;
+}
+
+.content :where(ul){ @apply list-disc pl-6 space-y-2; }
+.content :where(ol){ @apply list-decimal pl-6 space-y-2; }
+.content :where(li){ @apply pl-1; }
+.content :where(ul > li > ul){ @apply mt-1; }
+.content :where(ol > li > ol){ @apply mt-1; }
+
+.content :where(blockquote){
+  @apply border-l-4 border-neutral-300 pl-4 italic text-neutral-600 dark:text-neutral-300 dark:border-neutral-700;
+}
+
+.content :where(code){
+  @apply font-mono text-sm px-1.5 py-0.5 rounded bg-neutral-950/5 dark:bg-white/10;
+}
+.content :where(pre){
+  @apply overflow-x-auto rounded-lg p-4 bg-neutral-950/5 dark:bg-white/5 text-sm leading-relaxed;
+}
+.content :where(pre code){
+  @apply bg-transparent p-0 text-inherit;
+}
+
+.content :where(img){ @apply rounded-xl shadow-sm mx-auto my-6; }
+.content :where(figure){ @apply my-8; }
+.content :where(figcaption){ @apply text-sm text-neutral-500 mt-2 text-center dark:text-neutral-400; }
+
+.content :where(.table-wrap){ @apply overflow-x-auto; }
+.content :where(table){ @apply w-full border-collapse text-sm; }
+.content :where(thead){ @apply text-left text-neutral-600 dark:text-neutral-300; }
+.content :where(th){ @apply font-semibold py-2 pr-4; }
+.content :where(td){ @apply py-2 pr-4 align-top; }
+.content :where(tbody tr){ @apply border-b border-neutral-200 dark:border-neutral-800; }
+.content :where(tbody tr:nth-child(even)){
+  @apply bg-neutral-50 dark:bg-white/5;
+}
+
+.content :where(hr){ @apply my-10 border-t border-neutral-200 dark:border-neutral-800; }
+
+.content :where(details){ @apply rounded-lg border border-neutral-200 dark:border-neutral-800 p-4 my-4; }
+.content :where(summary){ @apply cursor-pointer font-medium list-none flex items-center gap-2; }
+.content :where(summary)::marker { content: ""; }
+.content :where(details[open] summary svg){ @apply rotate-90 transition; }
+
+.content :where(iframe){ @apply w-full aspect-video rounded-lg; }
+
+.content :where(.heading-anchor){
+  @apply no-underline opacity-60 ml-1 align-middle hover:opacity-100 text-neutral-400 dark:text-neutral-500;
+}
+
+.content :where(button, [role="button"], summary, a){
+  @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 rounded-sm;
+}
