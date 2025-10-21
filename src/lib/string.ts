@@ -15,3 +15,8 @@ export function slugify(text: string) {
     .replace(/[^\w\-]+/g, "")
     .replace(/\-\-+/g, "-")
 }
+
+export function getAssetExtension(path: string): string {
+  const splittedPath = path.split('.');
+  return splittedPath[splittedPath.length - 1];
+}

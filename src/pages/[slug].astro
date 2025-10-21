@@ -32,7 +32,6 @@ let html
 try {
   html = await markdownToHtml(post?.content ?? '');
 } catch(error) {
-  console.log(error)
   html = '';
 }
 
@@ -41,6 +40,7 @@ try {
 <BlogPost
   title={post?.title ?? error?.message}
   description={post?.description ?? error?.message}
+  image={post?.cover_img}
 >
   <section class="w-full max-w-full">
     <Image
