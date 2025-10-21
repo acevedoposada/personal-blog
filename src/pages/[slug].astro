@@ -54,9 +54,9 @@ try {
     </h1>
     <p>{dayjs(post?.published_at).format('MMMM D, YYYY')}</p>
 
-    <h3>
+    <h2>
       {post?.description}
-    </h3>
+    </h2>
     
     <article class="content" set:html={html} />
 
