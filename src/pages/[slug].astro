@@ -4,7 +4,8 @@ import { Image } from "astro:assets";
 import dayjs from 'dayjs';
 
 import BlogPost from "@/layouts/BlogPost.astro";
-import { mdToHtml } from '@/lib/markdown';
+import { markdownToHtml } from '@/lib/markdown';
+import '@/styles/post.css';
 
 export const prerender = false;
 
@@ -28,12 +29,12 @@ if (error) {
 }
 
 let html 
-// try {
-//   html = await mdToHtml(post?.content ?? '');
-
-// } catch {
+try {
+  html = await markdownToHtml(post?.content ?? '');
+} catch(error) {
+  console.log(error)
   html = '';
-// }
+}
 
 ---
 
@@ -53,11 +54,11 @@ let html
     </h1>
     <p>{dayjs(post?.published_at).format('MMMM D, YYYY')}</p>
 
-    <h3>
+    <h2>
       {post?.description}
-    </h3>
+    </h2>
     
-    <article set:html={html} />
+    <article class="content" set:html={html} />
 
     {error && error.message}
   </section>
