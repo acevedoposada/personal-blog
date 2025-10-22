@@ -4,27 +4,27 @@
   @apply relative cursor-pointer rounded-3xl hover:before:opacity-30 hover:after:scale-105 hover:after:opacity-40;
 }
 
+.post--disable-glow {
+  @apply hover:before:opacity-0;
+}
+
 .post::after {
   content: "";
   @apply absolute left-0 top-0 z-[-1] h-full w-full rounded-4xl border border-white/20 opacity-0 transition-all duration-500;
-  background: radial-gradient(
-    circle,
-    rgba(2, 0, 36, 0.5) 0%,
-    rgba(9, 9, 121, 0.5) 35%,
-    rgba(2, 0, 36, 0.5) 100%
-  );
+  background: radial-gradient(circle,
+      rgba(2, 0, 36, 0.5) 0%,
+      rgba(9, 9, 121, 0.5) 35%,
+      rgba(2, 0, 36, 0.5) 100%);
 }
 
 .post::before {
   content: " ";
   @apply absolute z-[-2] h-full w-full overflow-hidden rounded-3xl opacity-0 blur-2xl transition-all duration-500;
-  background: conic-gradient(
-    var(--color-alt) 80deg,
-    var(--color-indigo-500),
-    var(--color-purple-500),
-    var(--color-indigo-500),
-    var(--color-alt) 280deg
-  );
+  background: conic-gradient(var(--color-alt) 80deg,
+      var(--color-indigo-500),
+      var(--color-purple-500),
+      var(--color-indigo-500),
+      var(--color-alt) 280deg);
 }
 
 .post__img {

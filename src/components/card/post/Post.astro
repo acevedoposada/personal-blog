@@ -10,10 +10,10 @@ import styles from './Post.module.css';
 
 type Props = CardProps;
 
-const { image, class: className, title, description, avatar, date, tags, ...props } = Astro.props;
+const { image, class: className, title, description, avatar, date, tags, disableGlow, ...props } = Astro.props;
 ---
 
-<article class:list={[styles.post, "group flex flex-col", className]} {...props}>
+<article class:list={[styles.post, "group flex flex-col", { [styles['post--disable-glow']]: disableGlow }, className]} {...props}>
   <Image
     src={image as LocalImageProps['src']}
     alt="Post image cover"

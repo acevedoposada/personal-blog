@@ -27,8 +27,10 @@ const { title, description, image } = Astro.props;
 	</head>
 
 	<body class="flex flex-col min-h-screen overflow-x-hidden">
-		<main class="flex-1 container mx-auto pt-12 box-border px-4 relative">
-			<a href="/">Go back</a>
+		<main class="flex-1 pt-12 box-border pb-10 relative">
+			<nav class="container mx-auto px-4">
+				<a href="/">Go back</a>
+			</nav>
 			<slot />
 		</main>
 		<Footer />

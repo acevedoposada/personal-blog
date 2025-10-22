@@ -4,6 +4,63 @@
   @apply mx-auto max-w-3xl px-4 py-8;
 }
 
+.post-container {
+  @apply container mx-auto px-4;
+}
+
+@property --fade-width {
+  syntax: '<percentage>';
+  inherits: true;
+  initial-value: 10%;
+}
+
+@property --fade-start {
+  syntax: '<percentage>';
+  inherits: true;
+  initial-value: 90%;
+}
+
+.post__suggested {
+  @apply grid grid-cols-1 gap-12 pb-10 pt-5 container mx-auto px-8 md:auto-cols-[400px] md:grid-flow-col md:grid-cols-none md:overflow-x-auto md:mx-0 md:max-w-none xl:container xl:grid-cols-3 xl:mx-auto;
+}
+
+@media (width >=48rem) and (width <=80rem) {
+  .post__suggested {
+    mask-image: none;
+    -webkit-mask-image: none;
+
+    --mask-right-only: linear-gradient(to right,
+        white 0%,
+        white var(--fade-start),
+        transparent 100%);
+
+    --mask-left-only: linear-gradient(to right,
+        transparent 0%,
+        white var(--fade-width),
+        white 100%);
+
+    --mask-both: linear-gradient(to right,
+        transparent 0%,
+        white var(--fade-width),
+        white var(--fade-start),
+        transparent 100%);
+
+    mask-image: var(--mask-right-only);
+    -webkit-mask-image: var(--mask-right-only);
+  }
+
+  .post__suggested.at-middle {
+    mask-image: var(--mask-both);
+    -webkit-mask-image: var(--mask-both);
+  }
+
+  .post__suggested.at-end {
+    mask-image: var(--mask-left-only);
+    -webkit-mask-image: var(--mask-left-only);
+  }
+}
+
+
 .content :where(h1) {
   @apply text-3xl md:text-4xl font-bold tracking-tight text-balance dark:text-neutral-100;
 }

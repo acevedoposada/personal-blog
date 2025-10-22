@@ -20,6 +20,7 @@ export interface CardProps extends astroHTML.JSX.HTMLAttributes {
   avatar: Avatar;
   date: string | Date;
   tags?: Array<string>;
+  disableGlow?: boolean;
 }
 
 export interface BlogCardProps extends CardProps {

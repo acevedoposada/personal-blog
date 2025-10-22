@@ -1,4 +1,7 @@
+import type { PostgrestSingleResponse } from "@supabase/supabase-js";
+
 import { PostsStatus } from "@/constants/posts";
+import type { Post } from "@/interfaces/post";
 import supabase from "@/supabase";
 
 export const getPosts = async (page: number) => {
@@ -27,16 +30,9 @@ export const getPosts = async (page: number) => {
   }
 }
 
-export async function getPostBySlug(slug: string) {
-  const { data, error, status } = await supabase
-    .from('post')
-    .select('*')
-    .eq('slug', slug)
-    .single();
+type RpcRow = { current: Post; suggestions: Post[] };
 
-  return {
-    post: data,
-    error,
-    status
-  }
+export async function getPost(slug: string): Promise<PostgrestSingleResponse<RpcRow[]>> {
+  return await supabase
+    .rpc('post_get_context', { p_slug: slug });
 }
