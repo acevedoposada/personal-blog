@@ -6,6 +6,9 @@ import dayjs from 'dayjs';
 import BlogPost from "@/layouts/BlogPost.astro";
 import { markdownToHtml } from '@/lib/markdown';
 import '@/styles/post.css';
+import { DotsBackground } from "@/components/dots-background";
+import Chip from "@/components/chip/Chip.astro";
+import { SITE_TITLE } from "@/consts";
 
 export const prerender = false;
 
@@ -38,28 +41,53 @@ try {
 ---
 
 <BlogPost
-  title={post?.title ?? error?.message}
+  title={`${post?.title ?? error?.message} ${SITE_TITLE}` }
   description={post?.description ?? error?.message}
   image={post?.cover_img}
 >
-  <section class="w-full max-w-full">
+  <div class="absolute h-screen w-full z-[-1] opacity-60">
+    <DotsBackground client:load speed={{ left: 55, right: 65 }} />
+  </div>
+  <header class="mx-auto max-w-3xl py-8">
+    <div class="text-center py-10">
+      <p class="text-indigo-300 font-bold">{dayjs(post?.published_at).format('MMMM D, YYYY')}</p>
+      <h1 class="text-5xl font-bold font-lora my-4">
+        {post?.title}
+      </h1>
+      <p class="text-neutral-300 mt-4">
+        {post?.description}
+      </p>
+      {post?.tags && (
+        <div class="flex gap-2 justify-center mt-6">
+          {
+            post.tags.map((tag: string) => (
+              <Chip variant="tonal" color="default">
+                {tag}
+              </Chip>
+            ))
+          }
+        </div>
+      )}
+    </div>
+  </header>
+  <div class="relative">
     <Image
-      width={300}
-      height={150}
+      width={512}
+      height={512}
       src={post?.cover_img}
       alt="Post cover image"
+      class="w-full rounded-3xl h-[32rem] object-cover object-center"
     />
-    <h1 class="text-4xl font-bold font-lora">
-      {post?.title}
-    </h1>
-    <p>{dayjs(post?.published_at).format('MMMM D, YYYY')}</p>
-
-    <h2>
-      {post?.description}
-    </h2>
-    
-    <article class="content" set:html={html} />
-
-    {error && error.message}
-  </section>
+    <Image
+      width={512}
+      height={512}
+      src={post?.cover_img}
+      alt="Post cover image backdrop"
+      class="w-full rounded-3xl h-[32rem] object-cover object-center absolute z-[-1] blur-xl top-0 left-0 opacity-50"
+    />
+  </div>
+  <section class="w-full max-w-full content" set:html={html} />
+  <div class="absolute h-screen w-screen z-[-1] bottom-0 right-0 rotate-y-180">
+    <DotsBackground  client:load speed={{ left: 55, right: 65 }} />
+  </div>
 </BlogPost>

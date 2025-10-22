@@ -26,8 +26,8 @@ const { title, description, image } = Astro.props;
 		<BaseHead title={title} description={description} image={image} />
 	</head>
 
-	<body class="flex flex-col min-h-screen">
-		<main class="flex-1 container mx-auto pt-12 box-border">
+	<body class="flex flex-col min-h-screen overflow-x-hidden">
+		<main class="flex-1 container mx-auto pt-12 box-border px-4 relative">
 			<a href="/">Go back</a>
 			<slot />
 		</main>

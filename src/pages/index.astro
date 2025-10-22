@@ -25,7 +25,7 @@ const { posts } = data;
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<BaseHead title={`Thought Journal ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
 	</head>
 	<body>
 		<Header />
@@ -59,7 +59,7 @@ const { posts } = data;
 					}
 				</ul>
 			</section>
-			<div class="pointer-events-none absolute top-0 z-[-1] h-full w-screen select-none overflow-x-hidden">
+			<div class="pointer-events-none absolute top-0 z-[-1] h-full w-screen select-none">
 				<DotsBackground client:load speed={{ left: 55, right: 65 }} />
 			</div>
 		</main>
