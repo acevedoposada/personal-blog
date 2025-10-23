@@ -18,8 +18,13 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 import '@/styles/global.css';
 import '@/styles/tailwind.css';
 
-const { data = { posts: [] } } = await Astro.callAction(actions.posts, { page: 1})
-const { posts } = data;
+const { data } = await Astro.callAction(actions.posts, { page: 1})
+
+if (!data) {
+	return new Response(null, { status: 400 });
+}
+
+const { posts, featured } = data;
 ---
 
 <!doctype html>
@@ -31,21 +36,28 @@ const { posts } = data;
 		<Header />
 		<main>
 			<section class="container flex flex-col gap-12 px-6 pb-14 pt-10 md:pt-14 mx-auto">
+				{featured && (
+					<a class="" href={`/${featured.slug}/`}>
+						<Card
+							class="h-full"
+							variant='featured'
+							image={(featured.cover_img as any) || import.meta.env.POST_COVER_PLACEHOLDER}
+							title={featured.title}
+							description={featured.description}
+							avatar={{ name: 'David Acevedo', img: '/images/david-acevedo.webp' }}
+							date={featured.published_at}
+							tags={featured.tags}
+						/>
+					</a>
+				)}
 				<ul class="grid grid-cols-1 gap-12 md:grid-cols-2 xl:grid-cols-3">
 					{
 						posts.map((post, idx) => (
-							<li class:list={[
-								'flex',
-								{ 'col-span-1 md:col-span-2 xl:col-span-3 mb-10': idx === 0 && post.featured }
-								]}
-							>
+							<li class='flex'>
 								<a class="flex-1" href={`/${post.slug}/`}>
 									<Card
 										class="h-full"
-										variant={(post.featured && idx === 0)
-											? 'featured'
-											: 'post'
-										}
+										variant='post'
 										image={(post.cover_img as any) || import.meta.env.POST_COVER_PLACEHOLDER}
 										title={post.title}
 										description={post.description}

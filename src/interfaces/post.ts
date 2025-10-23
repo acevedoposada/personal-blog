@@ -13,3 +13,11 @@ export interface Post {
   status: `${PostsStatus}`;
   content: string;
 }
+
+export interface GetPostsResponse {
+  posts: Post[];
+  featured: Post;
+  total: number;
+  page: number;
+  pageSize: number;
+}
