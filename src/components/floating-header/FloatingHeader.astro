@@ -1,0 +1,109 @@
+---
+import Highlight from '../Highlight.astro';
+import Icon from '../Icon.astro';
+
+import './FloatingHeader.css';
+
+interface Props {
+  backLink: string;
+  title: string;
+  highlighted?: string;
+}
+
+const { backLink, title, highlighted } = Astro.props;
+---
+
+<div id="floating-header-trigger" class="absolute w-full h-full top-0 left-0 select-none pointer-events-none" />
+<div
+  id="floating-header"
+  class="fixed -top-10 left-0 z-10 w-full bg-indigo-900/40 pt-10 shadow-lg shadow-indigo-800/15 backdrop-blur-xl"
+  data-state="hidden"
+  aria-hidden="true"
+>
+  <div class="group container mx-auto flex items-center px-6 py-6">
+    <a
+      href={backLink}
+      class="group-hover:mr-2 rounded-lg p-1.5 pl-0 transition-all duration-300 hover:bg-indigo-600/25 hover:pl-1.5 grid place-content-center"
+      aria-label="Go home"
+    >
+      <Icon class="text-2xl" name="chevron-left" />
+    </a>
+    <h2 class="font-lora text-xl font-medium transition-all duration-300 peer-hover:ml-4 lg:text-3xl">
+      {title} {highlighted && <Highlight>{highlighted}</Highlight>}
+    </h2>
+  </div>
+</div>
+
+
+<script>
+  let io: IntersectionObserver | undefined;
+  function initFloatingHeader() {
+    const root = document.getElementById("floating-header-trigger");
+		const sticky = document.getElementById("floating-header");
+		if (!root || !sticky) return;
+
+		let visible = false;
+		let animating = false;
+
+		const show = () => {
+			if (visible || animating) return;
+			visible = true;
+			animating = true;
+			sticky.removeAttribute("aria-hidden");
+			sticky.dataset.state = "enter";
+			sticky.addEventListener(
+				"animationend",
+				() => {
+					if (sticky.dataset.state === "enter") sticky.dataset.state = "shown";
+					animating = false;
+				},
+				 {once: true }
+			);
+		}
+
+		const hide = () => {
+			if (!visible || animating) return;
+			visible = false;
+			animating = true;
+			sticky.dataset.state = "exit";
+			sticky.addEventListener(
+				"animationend",
+				() => {
+					if (sticky.dataset.state === "exit") {
+						sticky.dataset.state = "hidden";
+						sticky.setAttribute("aria-hidden", "true");
+					}
+					animating = false;
+				},
+				{ once: true }
+			);
+		}
+
+		io = new IntersectionObserver(
+			([entry]) => {
+				if (!entry) return;
+				if (entry.isIntersecting) {
+					hide();
+				} else {
+					show();
+				}
+			},
+			{
+				root: null,
+				rootMargin: "-50px 0px 0px 0px",
+				threshold: 0,
+			}
+		);
+		io.observe(root);
+  }
+
+  function cleanupFloatingHeader() {
+    if (io) {
+      io.disconnect();
+      io = undefined;
+    }
+  }
+
+	document.addEventListener('astro:page-load', initFloatingHeader);
+  document.addEventListener('astro:before-swap', cleanupFloatingHeader);
+</script>

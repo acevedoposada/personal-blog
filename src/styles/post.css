@@ -21,11 +21,15 @@
 }
 
 .post__suggested {
-  @apply grid grid-cols-1 gap-12 pb-10 pt-5 container mx-auto px-8 md:auto-cols-[400px] md:grid-flow-col md:grid-cols-none md:overflow-x-auto md:mx-0 md:max-w-none xl:container xl:grid-cols-3 xl:mx-auto;
+  @apply pt-20 md:pt-32;
+}
+
+.post__suggested__posts {
+  @apply grid grid-cols-1 gap-12 pb-10 pt-5 px-8 md:px-20 md:auto-cols-[400px] md:grid-flow-col md:grid-cols-none md:overflow-x-auto xl:overflow-visible xl:container xl:grid-cols-3 xl:mx-auto xl:px-8;
 }
 
 @media (width >=48rem) and (width <=80rem) {
-  .post__suggested {
+  .post__suggested__posts {
     mask-image: none;
     -webkit-mask-image: none;
 
@@ -49,14 +53,43 @@
     -webkit-mask-image: var(--mask-right-only);
   }
 
-  .post__suggested.at-middle {
+  .post__suggested__posts.at-middle {
     mask-image: var(--mask-both);
     -webkit-mask-image: var(--mask-both);
   }
 
-  .post__suggested.at-end {
+  .post__suggested__posts.at-end {
     mask-image: var(--mask-left-only);
     -webkit-mask-image: var(--mask-left-only);
+  }
+}
+
+.post__newsletter {
+  @apply bg-gradient-to-l from-indigo-500/15 via-purple-500/15 to-indigo-500/15 backdrop-blur-3xl py-16;
+  mask-image: linear-gradient(to right,
+      transparent 0%,
+      white 25%,
+      white 75%,
+      transparent 100%);
+  -webkit-mask-image: linear-gradient(to right,
+      transparent 0%,
+      white 25%,
+      white 75%,
+      transparent 100%);
+}
+
+@media (width <=48rem) {
+  .post__newsletter {
+    mask-image: linear-gradient(to right,
+        rgba(255, 255, 255, 0.4) 0%,
+        white 10%,
+        white 90%,
+        rgba(255, 255, 255, 0.4) 100%);
+    -webkit-mask-image: linear-gradient(to right,
+        rgba(255, 255, 255, 0.4) 0%,
+        white 15%,
+        white 85%,
+        rgba(255, 255, 255, 0.4) 100%);
   }
 }
 

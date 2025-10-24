@@ -11,7 +11,7 @@ import DotsBackground from '@/components/dots-background/dots-background.tsx';
 import BaseHead from '@/components/BaseHead.astro';
 import Card from '@/components/card/Card.astro';
 import Footer from '@/components/Footer.astro';
-import Header from '@/components/header/Header.astro';
+import Header from '@/components/Header.astro';
 
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 
@@ -32,7 +32,7 @@ const { posts, featured } = data;
 	<head>
 		<BaseHead title={`Thought Journal ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
 	</head>
-	<body>
+	<body class="overflow-x-hidden">
 		<Header />
 		<main>
 			<section class="container flex flex-col gap-12 px-6 pb-14 pt-10 md:pt-14 mx-auto">

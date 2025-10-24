@@ -11,6 +11,8 @@ import { SITE_TITLE } from "@/consts";
 import '@/styles/post.css';
 import type { Post } from '@/interfaces/post';
 import Card from "@/components/card/Card.astro";
+import FloatingHeader from "@/components/floating-header/FloatingHeader.astro";
+import Highlight from "@/components/Highlight.astro";
 
 export const prerender = false;
 
@@ -53,7 +55,11 @@ try {
   <div class="absolute h-screen w-full z-[-1] opacity-60">
     <DotsBackground client:load speed={{ left: 55, right: 65 }} />
   </div>
-  <header class="mx-auto max-w-3xl py-8 post-container">
+  <header class="relative mx-auto max-w-3xl py-8 post-container">
+    <FloatingHeader
+      title={post?.title || ''}
+      backLink="/"
+    />
     <div class="text-center py-10">
       <p class="text-indigo-300 font-bold">{dayjs(post?.published_at).format('MMMM D, YYYY')}</p>
       <h1 class="text-5xl font-bold font-lora my-4">
@@ -95,23 +101,54 @@ try {
       </div>
     )
   }
-  <section class="w-full max-w-full content" set:html={html} />
+  <section class="w-full max-w-full content mb-24" set:html={html} />
+  <section class="post__newsletter">
+    <div class="text-center container mx-auto px-16 md:px-8">
+      <h4 class="text-4xl font-bold font-lora mb-6">
+        Subscribe to our <Highlight>newsletter</Highlight>
+      </h4>
+      <p class="text-base md:text-xl text-neutral-300 mx-auto max-w-3xl font-light">
+        Join the newsletter and receive advanced tutorials, best practices, and the tools every developer should know. Straight to your inbox, zero spam.
+      </p>
+    </div> 
+  </section>
   {suggestions && (
     <section class="post__suggested">
-      {suggestions.map(post => (
-        <a href={`/${post.slug}/`}>
-          <Card
-            variant="post"
-            title={post.title}
-            image={post.cover_img}
-            description={post.description}
-            avatar={{ name: 'David Acevedo', img: '/images/david-acevedo.webp' }}
-            date={post.published_at}
-            tags={post.tags}
-            disableGlow
-          />
-        </a>
-      ))}
+      <div class="container mx-auto px-8 grid grid-cols-1 items-center mb-10 xl:grid-cols-3">
+        <div class="grid col-span-2 gap-4">
+          <Chip variant="tonal" color='default'>Blog post</Chip>
+          <h4 class="text-4xl font-lora font-medium">
+            Latest article
+          </h4>
+          <p class="text-neutral-400 text-xl">
+            Explore this latest article: a concise, practical read where I share ideas, techniques, and lessons about web development and design, with real examples and actionable tips to help improve your projects.
+          </p>
+        </div>
+        <div class="flex justify-start pt-10 xl:justify-end xl:pt-0">
+          <a href="/" class="btn w-fit">
+            <span>
+              View All Posts
+            </span>
+            <i class="ti ti-arrow-right text-2xl" />
+          </a>
+        </div>
+      </div>
+      <div class="post__suggested__posts">
+        {suggestions.map(post => (
+          <a href={`/${post.slug}/`}>
+            <Card
+              variant="post"
+              title={post.title}
+              image={post.cover_img}
+              description={post.description}
+              avatar={{ name: 'David Acevedo', img: '/images/david-acevedo.webp' }}
+              date={post.published_at}
+              tags={post.tags}
+              disableGlow
+            />
+          </a>
+        ))}
+      </div>
     </section>
   )}
   <div class="absolute h-screen w-screen z-[-1] bottom-0 right-0 rotate-y-180">
@@ -120,8 +157,8 @@ try {
 </BlogPost>
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const suggestedContainer = document.querySelector('.post__suggested');
+  document.addEventListener('astro:page-load', () => {
+    const suggestedContainer = document.querySelector('.post__suggested__posts');
     function checkScrollEdges() {
       if (!suggestedContainer) return;
       const scroll = suggestedContainer.scrollLeft;

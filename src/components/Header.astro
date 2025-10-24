@@ -1,0 +1,33 @@
+---
+import Chip from './chip/Chip.astro';
+import FloatingHeader from './floating-header/FloatingHeader.astro';
+import Highlight from './Highlight.astro';
+
+const mainSiteUrl = import.meta.env.MAIN_SITE_URL;
+
+const title = "Thought";
+const subtitle = "Journal";
+const description =
+  "A blog about development, tech trends, and best practices to help you write better code and understand the digital future.";
+---
+
+<header id="blog-header" class="pt-12 relative">
+	<div class="container mx-auto grid gap-6 px-6">
+		<a href={mainSiteUrl} class="focus:outline-none">Go home</a>
+
+		<Chip variant="tonal" color="default">
+			Read my blog
+		</Chip>
+		<h1 class="font-lora text-4xl font-medium lg:text-6xl">
+			{title} <Highlight class="px-2 lg:px-4">{subtitle}</Highlight>
+		</h1>
+		<p class="text-lg font-light opacity-80 lg:text-2xl">
+			{description}
+		</p>
+	</div>
+	<FloatingHeader
+		title={title}
+		highlighted={subtitle}
+		backLink={mainSiteUrl}
+	/>
+</header>
