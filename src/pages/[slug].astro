@@ -52,7 +52,7 @@ try {
   description={post?.description ?? error?.message ?? ''}
   image={post?.cover_img}
 >
-  <div class="absolute h-screen w-full z-[-1] opacity-60">
+  <div class="absolute h-screen w-screen overflow-x-hidden z-[-1] opacity-60">
     <DotsBackground client:load speed={{ left: 55, right: 65 }} />
   </div>
   <header class="relative mx-auto max-w-3xl py-8 post-container">
@@ -151,7 +151,7 @@ try {
       </div>
     </section>
   )}
-  <div class="absolute h-screen w-screen z-[-1] bottom-0 right-0 rotate-y-180">
+  <div class="absolute h-screen w-screen z-[-1] bottom-0 right-0 rotate-y-180 overflow-x-hidden">
     <DotsBackground  client:load speed={{ left: 55, right: 65 }} />
   </div>
 </BlogPost>
